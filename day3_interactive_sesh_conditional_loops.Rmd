@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 # setting global options for the document in this section set up
 
 library(tidyverse)
+library(palmerpenguins)
 
 ```
 
@@ -113,6 +114,67 @@ if (marmot < 0.5) {
   {
     print("this is a large marmot")
   }
+
+
+```
+
+# group by and summarize combine `groub_by() |> summarize()`
+
+```{r}
+
+penguins |> 
+  group_by(species, island) |> 
+  summarize(mean_bill_length = mean(bill_length_mm, na.rm = TRUE), sd_bill_length = sd(bill_length_mm, na.rm = TRUE),
+            n = n())
+  
+
+# first penguins then group by species. just using group by does nothing but under the hood it says what ever you do next going to do what ever you want by the groups indicated
+# summarize will use what ever function do the function (by group since there is a group by line) then will return it in a summarized table
+
+#starting from penguins, under the hood telling R to recognize the different group in species and then next thing calculate that function for each of the different groups and then show it in a pretty table
+
+
+# can add another grouping item by comma in the group_by function, this shows now specieis by islands for the 
+
+# doesn't need a to add in a vector to expect the column names and is built to know and is a development arguement name
+
+# this is R's version of creating pivot tables
+
+# calculate the count or the number or rows in each group; 52 Adelie penguins at Torgersen 
+
+#     when using n it counts every row - and if you omit na.rm = TRUE values, we can then set conditions to only count things that are not an NA values, ** A really good question to ask so that we know what count we are including
+
+
+# running unique command
+
+unique(penguins$species)
+# since this is stored as a factor they have different levels
+
+unique(starwars$eye_color)
+# this is stored as characters so that there is no 
+
+str_detect(starwars$eye_color, "blue")
+# using string detect to see which characters have blue
+
+```
+
+## Group By Summarizes
+
+```{r}
+
+# 1. Find the mean and standard deviation of character height in `starwars` grouped by homeworld
+
+
+starwars |> 
+  group_by(homeworld) |> 
+  summarize(sd_char_height = sd(height, na.rm = TRUE))
+
+# 2. Find the maximum and minimum flipper length, and sample size for each species of penguins
+
+penguins |> 
+  group_by(species, sex) |> 
+  summarize(max_flip_length = max(flipper_length_mm, na.rm = TRUE),
+            min_flip_length = min(flipper_length_mm, na.rm = TRUE))
 
 
 ```
