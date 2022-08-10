@@ -177,5 +177,110 @@ penguins |>
             min_flip_length = min(flipper_length_mm, na.rm = TRUE))
 
 
+# in each of these lines only finding the max of each column, instead of having a new line for each you can say for any columns that satisfy the condition add it to the summary table
+
+```
+
+
+# Value of Across
+
+```{r}
+
+penguins |> 
+  group_by(species) |> 
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+
+penguins |> 
+  group_by(species) |> 
+  summarize(across(where(is.numeric), c(mean, sd), na.rm = TRUE))
+
+# can add different function in a vector for it to run, can do glue commands to automate the naming of the 
+
+```
+
+# for loop explorations
+
+```{r}
+
+tree_height <- c( 1, 2, 6, 10, 14, 20)
+
+for (i in seq_along(tree_height)) {
+  val = tree_height[i] + tree_height[i + 1]
+  print(val)
+}
+
+# creating cumulative sums - adding next value to previous value
+# i + one will add to it the next element in that vector
+```
+
+## For loop with conditional statement
+
+```{r}
+
+# creating a vector that creates an age in human years to get another animal year
+
+animal_ages <- vector(mode = "numeric", length = length(species))
+
+species <- c("dog", "elephant", "goat", "dog", "dog", "elephant")
+
+age_human <- c(3, 8, 4, 6, 12, 18)
+
+for (i in seq_along(species)) {
+  if (species[i] == "dog") {
+    animal_age <- age_human[i] * 7
+  } else if (species[i] == "elephant") {
+    animal_age <- age_human[i] * 0.88
+  } else if (species[i] == "goat") {
+    animal_age <- age_human[i] * 0.47
+  }
+  animal_ages[i] <- animal_age
+  }
+
+# starting with a vector and a one dimensional list so you just need to use a single bracket
+# if else that changes the conversion factor based on the species
+
+# storing the animal age as the new animal age at the i'th position
+
+```
+
+# For loops across columns using different methods - ie. data frames
+
+```{r}
+
+mean_mtcars <- vector(mode = "numeric", length = ncol(mtcars))
+
+for (i in seq_along(mtcars)) {
+  mean_val <- mean(mtcars[[1]], na.rm = TRUE)
+  mean_mtcars[i] <- mean_val
+}
+
+mean_mtcars
+
+# using single brackets - it would just return a data frame
+# using double brackets will return the values
+```
+
+# Syntactic Sugar - Functional Programming examples
+using things like apply and across and map_df
+
+```{r}
+
+apply(X = mtcars, MARGIN = 2, FUN = mean)
+
+# this give us the exact same thing as above
+
+```
+
+
+```{r}
+# part of the purrr package
+
+map(.x = mtcars, .f = mean)
+# returns a list of all fo the columns in the list
+
+map_df(.x = mtcars, .f = mean)
+# map_df will return the output in a data frame
+
+
 ```
 
