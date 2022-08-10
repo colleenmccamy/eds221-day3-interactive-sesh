@@ -1,0 +1,119 @@
+---
+title: "EDS 212 - Day 3 Conditionals & Loops"
+author: "Colleen McCamy"
+date: "2022-08-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# setting global options for the document in this section set up
+
+library(tidyverse)
+
+```
+
+
+## `if` statement fun
+
+```{r}
+
+burrito <- 2.4
+
+if (burrito > 2) {
+  print("I love burritos!")
+}
+
+# using if statements to create an output based on a variable
+
+```
+
+Creating a vector with strings
+
+```{r}
+
+my_ships <- c("Millenium Falcon", "X-wing", "Tie-Fighter", "Death Star")
+
+str_detect(my_ships, pattern = "r")
+# going through each element in the vector and if it contains "r" in the character - looking for any string match that exists in the vector
+
+str_detect(my_ships, pattern = "x")
+# case sensitive - can see that X-wing is not showing up as true since it is upper
+
+starwars
+
+```
+
+```{r}
+
+tatooine_characters <- starwars |> 
+  filter(homeworld == "Tatooine")
+# for each row check the condition if the homeworld value is equal to Tatooine then keep it, if not true don't keep it. Under the hood it is doing a if else (if Tatooine is true keep, if not remove the world)
+
+
+# Using the in operator to check for multiple possible matches, the in operator asks a different option is that if any of these options are true then keep the row
+
+tatooine_endor_naboo <- starwars |> 
+  filter(homeworld %in% c("Tatooine", "Naboo", "Endor"))
+
+# could write out long ways with using | the or operator and you would get the case if any of them are true -
+# the in operator creates a shortcut for or statements - does the value of homeworld contatin a value that is in the following vector
+
+# valuable for keep code concise, if you have an exisiting vector you could also plug that in
+
+# string r string detect - does this pattern contain anywhere in this element, if it is yes returns TRUE
+
+str_detect(my_ships, pattern = "x")
+
+phrase <- "I love burritos!"
+
+if (str_detect(phrase, "love")) {
+  print("I am a burrito fan.")
+}
+
+# could use string detect to print out patterns and not doing an if el statement
+
+```
+
+
+## Example of the `%in%` operator
+
+```{r}
+
+
+
+```
+
+
+## `if-else` statement using
+
+```{r}
+
+pika <- 89.1
+
+if (pika > 60) {
+  print ("mega pika")
+} else ("normal pika")
+
+
+# all of programming is if this is true do this or if false do this
+```
+
+
+## if else if else
+
+```{r}
+
+marmot <- 2.8
+
+if (marmot < 0.5) {
+  print ("this is a small marmot")} else if (marmot >= 0.5 & marmot <3) {
+    print ("this is a medium marmot")} else
+  {
+    print("this is a large marmot")
+  }
+
+
+```
+
